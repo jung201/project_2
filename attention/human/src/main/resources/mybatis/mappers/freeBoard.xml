@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fs.four.human.freeBoard.dao.FreeBoardDAO">
+
+    <!-- 전체 게시판 조회 -->
+    <select id="getAllFreeBoard" resultType="FreeBoardVO">
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount
+        FROM BOARD
+        WHERE B_GROUP = 'F'
+        ORDER BY B_ID DESC
+    </select>
+
+    <!-- 검색 기능 -->
+    <select id="searchFreeBoard" resultType="FreeBoardVO">
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
+        FROM BOARD
+        WHERE b_group = 'F' -- 게시판만 검색
+        AND LOWER(${category}) LIKE '%' || LOWER(#{query}) || '%' -- 대소문자 구분 없이 검색
+        ORDER BY b_id DESC -- 번호를 기준으로 내림차순 정렬
+    </select>
+
+    <!-- 카테고리 분류 기능 -->
+    <select id="getFreeBoardByCategory" resultType="FreeBoardVO">
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
+        FROM BOARD
+        WHERE b_group = 'F' -- 자유게시판만 조회
+        AND b_category = #{category} -- 카테고리 필터링
+        ORDER BY b_id DESC -- 번호를 기준으로 내림차순 정렬
+    </select>
+
+    <!-- 특정 게시판 조회 -->
+    <select id="getFreeBoardById" resultType="FreeBoardVO">
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount <!-- 조회수 컬럼 추가 -->
+        FROM BOARD
+        WHERE B_ID = #{id}
+    </select>
+
+    <!-- 새로운 게시판 데이터 등록 -->
+    <insert id="createFreeBoard">
+        INSERT INTO BOARD (
+        b_id, b_title, b_content, b_writer, b_group, b_category, b_created_date, b_updated_date, view_count)
+        VALUES (
+        freeboard_seq.NEXTVAL, -- 자유게시판 시퀀스
+        #{b_Title},
+        #{b_Content},
+        #{b_Writer},
+        'F',
+        CASE
+            WHEN TRIM(#{b_Category}) = 'QnA' THEN 'Q'
+            WHEN TRIM(#{b_Category}) = 'Tips' THEN 'T'
+            WHEN TRIM(#{b_Category}) = 'Free' THEN 'F'
+            ELSE NULL -- 예외 처리
+        END,
+        SYSDATE,
+        SYSDATE,
+        0 -- 조회수 기본값 0으로 설정
+        )
+    </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="updateFreeBoard">
+        UPDATE BOARD
+        SET
+        B_TITLE = #{b_Title},
+        B_CONTENT = #{b_Content},
+        B_CATEGORY = CASE
+            WHEN #{b_Category} = 'QnA' THEN 'Q'
+            WHEN #{b_Category} = 'Tips' THEN 'T'
+            WHEN #{b_Category} = 'Free' THEN 'F'
+            ELSE NULL
+        END,
+        B_UPDATED_DATE = SYSDATE
+        WHERE B_ID = #{b_Id}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteFreeBoard">
+        DELETE FROM BOARD
+        WHERE B_ID = #{id}
+    </delete>
+
+    <!-- 조회수 증가 -->
+    <update id="incrementViewCount" parameterType="int">
+        UPDATE BOARD
+        SET VIEW_COUNT = NVL(VIEW_COUNT, 0) + 1
+        WHERE B_ID = #{id}
+    </update>
+
+    <!-- 정렬 -->
+    <select id="sortFreeBoard" parameterType="map" resultType="fs.four.human.freeBoard.vo.FreeBoardVO">
+        SELECT
+        B_ID as b_Id,
+        B_TITLE as b_Title,
+        B_CONTENT as b_Content,
+        B_WRITER as b_Writer,
+        B_GROUP as b_Group,
+        B_CATEGORY as b_Category,
+        B_CREATED_DATE as b_CreatedDate,
+        B_UPDATED_DATE as b_UpdatedDate,
+        VIEW_COUNT as b_ViewCount
+        FROM BOARD
+        WHERE B_GROUP = 'F' <!-- 자유 게시판만 가져오기 -->
+        ORDER BY
+        <choose>
+            <when test="column == 'B_ID'">B_ID</when>
+            <when test="column == 'B_TITLE'">B_TITLE</when>
+            <when test="column == 'B_WRITER'">B_WRITER</when>
+            <when test="column == 'B_CREATEDDATE'">B_CREATED_DATE</when>
+            <when test="column == 'B_VIEWCOUNT'">VIEW_COUNT</when>
+            <when test="column == 'B_CATEGORY'">B_CATEGORY</when> <!-- 카테고리 정렬 추가 -->
+            <otherwise>B_ID</otherwise>
+        </choose>
+        ${order} <!-- ASC 또는 DESC -->
+    </select>
+
+
+
+</mapper>

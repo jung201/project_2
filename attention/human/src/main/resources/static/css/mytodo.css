@@ -1,0 +1,386 @@
+/* Layout */
+.header_st {
+    margin-bottom: 20px;
+}
+
+.my-layout-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.my-page-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Chart Section */
+.my-chart-section {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.my-chart {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 45%;
+}
+
+.my-chart-container {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.my-chart-container canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0 auto;
+}
+
+.my-chart-legend {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    align-items: flex-start;
+}
+
+.my-chart-legend li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #333;
+}
+
+.my-chart-legend li span {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* Buttons */
+.my-buttons-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.my-large-button {
+    margin-left: 100px;
+    width: 180px;
+    height: 140px;
+    background-color: #3498db;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.my-inline-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.my-inline-buttons button {
+    width: 150px;
+    height: 40px;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.my-inline-buttons button:hover {
+    background-color: #b0b0b0;
+}
+
+/* Sort Options */
+.my-sort-options {
+    gap: 15px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 150px;
+}
+
+.my-sort-options button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.my-sort-options button:hover {
+    text-decoration: underline;
+    color: #007BFF;
+}
+
+.my-sort-options i {
+    font-size: 16px;
+}
+
+/* Task List */
+.my-task-list {
+    margin-top: 20px;
+}
+
+.my-task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.my-task-checkbox {
+    flex: 0 0 5%;
+}
+
+.my-task-content {
+    flex: 0 0 50%;
+    text-align: left;
+}
+
+.my-task-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.my-task-details {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Task Status Buttons */
+.my-task-status-buttons {
+    flex: 0 0 20%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-status {
+    padding: 5px 10px;
+    border: 1px solid gray;
+    background-color: white;
+    color: gray;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+/* Specific Status Styles */
+.my-status.Plan.active {
+    background-color: #e74c3c; /* 변경된 색상: 예정 */
+    color: white;
+    border: 1px solid #e74c3c;
+}
+
+.my-status.InProgress.active {
+    background-color: #f1c40f; /* 변경된 색상: 진행 */
+    color: white;
+    border: 1px solid #f1c40f;
+}
+
+.my-status.Complete.active {
+    background-color: #2ecc71; /* 완료 색상 유지 */
+    color: white;
+    border: 1px solid #2ecc71;
+}
+
+/* Hover Effects */
+.my-status:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+.my-status.Plan:hover {
+    background-color: #e74c3c; /* 변경된 색상: 예정 */
+    color: white;
+}
+
+.my-status.InProgress:hover {
+    background-color: #f1c40f; /* 변경된 색상: 진행 */
+    color: white;
+}
+
+.my-status.Complete:hover {
+    background-color: #2ecc71; /* 완료 색상 유지 */
+    color: white;
+}
+
+/* Non-selected state */
+.my-status:not(.active) {
+    background-color: white;
+    color: gray;
+    border: 1px solid gray;
+}
+
+/* Task Actions */
+.my-task-actions {
+    flex: 0 0 20%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.my-task-actions button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    color: white;
+}
+
+.my-task-actions .my-edit {
+    background-color: #3498db;
+}
+
+.my-task-actions .my-delete {
+    background-color: #e74c3c;
+}
+
+/* Popup & Overlay */
+/* 팝업 및 오버레이 스타일 */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px 30px;
+    display: none;
+    z-index: 1000;
+}
+.popup .priority{
+    padding: 10px;
+}
+.popup .time {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+}
+.popup .time #date{
+    width: 170px;
+}
+.popup .time select{
+    padding: 10px;
+}
+/* 활성화 상태 */
+.hidden {
+    display: none;
+}
+
+.popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size:16px;
+}
+
+.popup #registerForm {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    position: relative;
+}
+/* 폼 스타일 */
+.popup form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 팝업 제목 */
+.popup h2 {
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.popup form label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.popup form input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.popup form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* 등록 버튼 스타일 */
+.popup form .submit-btn {
+    margin-top: 30px;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.popup form .submit-btn:hover {
+    background: #0056b3;

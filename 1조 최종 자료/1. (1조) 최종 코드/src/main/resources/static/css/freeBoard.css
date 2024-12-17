@@ -1,0 +1,402 @@
+.freeBoard {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-left: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.freeBoard h2 {
+    width: 150px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.search-register {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center;
+    gap: 15px; /* 각 요소 간 간격 */
+    margin-bottom: 20px; /* 테이블과의 간격 */
+    padding: 10px; /* 내부 여백 추가 */
+    background-color: #f9f9f9; /* 밝은 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 살짝 그림자 */
+}
+
+.search-register .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 10px;
+}
+
+/* 자유게시판 카테고리 스타일 */
+.navbar {
+    margin: 30px;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.navbar ul li {
+    font-size: 18px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.navbar ul li a:hover {
+    color: #0000cd;
+}
+
+.navbar ul li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -22px;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 80%;
+    background-color: black;
+}
+
+.search-register select,
+.search-register input {
+     padding: 10px;
+     font-size: 14px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     width: auto; /* 너비 자동 조정 */
+}
+
+.search-register .btn-search,
+.search-register .btn-register {
+    padding: 8px 20px; /* 버튼 크기 조정 */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 호버 애니메이션 */
+}
+
+.search-register .btn-search:hover,
+.search-register .btn-register:hover {
+    background-color: #0056b3;
+}
+
+.freeBoard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed;
+}
+
+.freeBoard-table th,
+.freeBoard-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    overflow: hidden; /* 내용이 길면 잘리게 설정 */
+    text-overflow: ellipsis; /* 생략 표시 (...) 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    cursor: pointer;
+}
+
+/* 열 너비 고정 */
+.freeBoard-table th:nth-child(1), /* 번호 */
+.freeBoard-table td:nth-child(1) {
+    width: 5%; /* 번호 열 크기 */
+}
+
+.freeBoard-table th:nth-child(2), /* 분류 */
+.freeBoard-table td:nth-child(2) {
+    width: 10%; /* 분류 열 크기 */
+}
+
+.freeBoard-table th:nth-child(3), /* 제목 */
+.freeBoard-table td:nth-child(3) {
+    width: 40%; /* 제목 열 크기 */
+}
+
+.freeBoard-table td:nth-child(3) {
+    text-align: left;
+}
+
+.freeBoard-table th:nth-child(4), /* 내용 */
+.freeBoard-table td:nth-child(4) {
+    width: 50%; /* 내용 열 크기 */
+}
+
+.freeBoard-table th:nth-child(5), /* 작성자 */
+.freeBoard-table td:nth-child(5) {
+    width: 7%; /* 작성자 열 크기 */
+}
+
+.freeBoard-table th:nth-child(6), /* 날짜 */
+.freeBoard-table td:nth-child(6) {
+    width: 9%; /* 날짜 열 크기 */
+}
+
+.freeBoard-table th:nth-child(7), /* 조회수 */
+.freeBoard-table td:nth-child(7) {
+    width: 5%; /* 조회수 열 크기 */
+}
+
+.freeBoard-table th {
+   font-weight: bold;
+    color: #333;
+    border-top: 3px solid #747474;
+    border-bottom: 1px solid #747474;
+    background-color: #f6f6f6;
+}
+
+.freeBoard-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 테이블의 내용 열 숨기기 */
+.freeBoard-table td:nth-child(4),
+.freeBoard-table th:nth-child(4) {
+    display: none;
+}
+
+/* 팝업 오버레이 스타일 */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+/* 팝업 내부 스타일 */
+.popup {
+  width: 750px;
+  height: 750px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px 30px;
+  z-index: 1000;
+  overflow-y: auto; /* 세로 스크롤 추가 */
+  overflow-x: hidden; /* 가로 스크롤 숨기기 */
+}
+
+
+/* 숨김 */
+.hidden {
+    display: none;
+}
+
+/* 팝업 제목 스타일 */
+.popup h2 {
+  font-size: 30px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* 제목과 카테고리 병렬 배치 */
+.form-row {
+    display: flex;
+    gap: 20px; /* 제목과 카테고리 필드 사이 간격 */
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1; /* 필드의 너비를 동일하게 설정 */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group select,
+.form-group input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 팝업 폼 라벨 스타일 */
+.popup form label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* 팝업 폼 입력 필드 스타일 */
+.popup form input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+/* 팝업 서머노트 스타일 */
+.popup form #summernote {
+  height: 200px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  overflow-y: auto;
+  resize: none;
+}
+
+/* 팝업 등록 버튼 스타일 */
+.popup form .submit-btn {
+  padding: 10px;
+  background: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+/* 팝업 등록 버튼 호버 스타일 */
+.popup form .submit-btn:hover {
+  background: #0056b3;
+}
+
+/* 팝업 닫기 버튼 스타일 */
+.popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* 팝업 닫기 버튼 호버 스타일 */
+.popup .close-btn:hover {
+    background: darkred;
+}
+
+/* 내용 팝업 */
+.contentPopup {
+    padding: 0px 20px 20px 20px;
+    background-color: #fff;
+    border: 5px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contentPopup .title-category h3 {
+    color: blue; /* 파란색 글씨 */
+    font-size: 1.5em; /* 글씨 크기 */
+    font-weight: bold; /* 굵게 */
+    margin-bottom: 50px; /* 아래 여백 */
+}
+
+.contentPopup .sub{
+    position: absolute;
+    right: 60px;
+    top: 200px;
+    text-align: left;
+    font-size: 16px;
+    color: #555;
+}
+
+.contentPopup .sub div {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.contentPopup .content {
+    margin-top: 50px;
+}
+
+.contentPopup .content #popupFreeBoardTitle {
+   border-bottom: 3px solid #747474;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* 수정 및 삭제 버튼 스타일 */
+.popup .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 120px;
+}
+
+.popup .action-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup .action-buttons .edit-btn {
+    background-color: #007bff;
+}
+
+.popup .action-buttons .edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.popup .action-buttons .delete-btn {
+    background-color: #dc3545;
+}
+
+.popup .action-buttons .delete-btn:hover {
+    background-color: #b02a37;
+}
+
+/* 저장 버튼 스타일 */
+.popup form .editBtn {
+    margin-top: 80px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
